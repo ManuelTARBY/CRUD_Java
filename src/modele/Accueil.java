@@ -142,20 +142,15 @@ public class Accueil extends JFrame {
 		});
 		add(btnApprenant);
 
-		// Bouton affiche un apprenant
-		JButton btnMajApprenant = new JButton("Afficher un apprenant par ID");
-		btnMajApprenant.setBounds(500, 450, 200, 40);
-		btnMajApprenant.addActionListener(new ActionListener() {
+		// Calcule la moyenne des absences
+		JButton btnMoy = new JButton("Absence moyenne");
+		btnMoy.setBounds(500, 450, 200, 40);
+		btnMoy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				apprenant = getApprenantById();
-				if (apprenant == null) {
-					System.out.println("Pas d'apprenant avec cet id !");
-				} else {
-					afficheApprenantDansFenetre(apprenant);
-				}
+				System.out.println("Absence moyenne : " + calculeMoyAbsence());
 			}
 		});
-		add(btnMajApprenant);
+		add(btnMoy);
 
 		JLabel lblId = new JLabel("Id: ");
 		lblId.setBounds(2, 280, 40, 40);
@@ -196,6 +191,24 @@ public class Accueil extends JFrame {
 
 		repaint();
 
+	}
+
+	/**
+	 * Calcule la moyenne d'absence
+	 * 
+	 * @return
+	 */
+	public float calculeMoyAbsence() {
+		float moy;
+
+		int total = 0;
+		for (Apprenant app : allApprenant) {
+			total += app.getNbAbsence();
+		}
+
+		moy = total / allApprenant.size();
+
+		return moy;
 	}
 
 	/**
